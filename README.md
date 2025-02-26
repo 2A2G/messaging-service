@@ -1,87 +1,83 @@
 # messaging-service
 
-## Descripción
-**Messaging Service** es un microservicio desarrollado en **Node.js**, diseñado para gestionar la mensajería dentro del ecosistema de microservicios de la plataforma. Este servicio permite el envío eficiente y escalable de mensajes electrónicos, asegurando una comunicación confiable y de alto rendimiento.
+## 📌 Descripción
 
-Soporta diversos protocolos de mensajería, incluyendo **SMTP**, **APIs de terceros** (como SendGrid o Mailgun) y sistemas de mensajería en cola (**RabbitMQ, Kafka**), lo que permite una integración flexible con otros servicios.
+**messaging-service** es un microservicio desarrollado en **Node.js** encargado de gestionar toda la mensajería del sistema, proporcionando una solución eficaz y escalable para el envío de notificaciones y alertas mediante correo electrónico.
 
-El servicio está preparado para ejecutarse en entornos **Dockerizados**, facilitando su despliegue y escalabilidad.
+## 🚀 Tecnologías utilizadas
 
----
+- **Node.js** - Entorno de ejecución para JavaScript en el servidor.
+- **Express.js** - Framework minimalista para la construcción de APIs REST.
+- **Nodemailer** - Biblioteca para el envío de correos electrónicos.
 
-## Tecnologías utilizadas
+## ⚙️ Requisitos previos
 
-- **Node.js** - Entorno de ejecución para JavaScript en el backend.
-- **Express.js** - Framework para la gestión de endpoints REST.
-- **Nodemailer** - Para el envío de correos electrónicos vía SMTP.
-- **SendGrid/Mailgun** - APIs para el envío de correos transaccionales.
-- **RabbitMQ / Kafka** - Para procesamiento asíncrono de mensajes en cola.
-- **Docker** - Para la contenedorización y despliegue del servicio.
-- **PostgreSQL / MongoDB** *(según configuración)* - Para almacenamiento de logs y configuraciones.
-
----
-
-## Requisitos previos
 Antes de ejecutar el servicio, asegúrate de tener instalado:
 
-- **Node.js** 16+
-- **npm** o **yarn**
-- **Docker y Docker Compose** *(opcional, para despliegue con contenedores)*
-- **RabbitMQ / Kafka** *(si se usa mensajería en cola)*
+- **Node.js** (v14+ recomendado)
+- **npm** (Administrador de paquetes de Node.js)
 
----
+## 📦 Instalación y ejecución
 
-## Configuración
-Crea un archivo `.env` en la raíz del proyecto con la configuración necesaria:
+Clona el repositorio:
 
-```env
-# Configuración del servicio
-PORT=3000
-NODE_ENV=production
-
-# Configuración de SMTP (Ejemplo con Gmail)
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=tuemail@gmail.com
-SMTP_PASS=tucontraseña
-
-# Configuración de SendGrid
-SENDGRID_API_KEY=tu-api-key
-
-# Configuración de RabbitMQ (Opcional)
-RABBITMQ_URL=amqp://localhost
-QUEUE_NAME=emailQueue
-```
-
----
-
-## Instalación y ejecución
-### 1️⃣ Clona el repositorio:
-```bash
+```sh
 git clone https://github.com/2A2G/messaging-service.git
 cd messaging-service
 ```
 
-### 2️⃣ Instala las dependencias:
-```bash
+Instala las dependencias:
+
+```sh
 npm install
-# o
-yarn install
 ```
 
-### 3️⃣ Ejecuta el servicio localmente:
-```bash
+Configura las variables de entorno en un archivo `.env`:
+
+```
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=tu_usuario
+DB_PASSWORD=tu_contraseña
+DB_NAME=messaging_db
+EMAIL_HOST=smtp.example.com
+EMAIL_PORT=587
+EMAIL_USER=tu_email@example.com
+EMAIL_PASSWORD=tu_contraseña
+```
+
+Ejecuta el servicio:
+
+```sh
 npm start
 ```
 
-## Licencia
-MIT License
+Para desarrollo con autorecarga:
 
-Copyright (c) [2025] [2A2G]
+```sh
+npm run dev
+```
 
-Se concede permiso, sin cargo, a cualquier persona que obtenga una copia  
-de este software para usarlo, modificarlo y distribuirlo, sujeto a que  
-se mantenga este aviso de licencia.
+## 🛠️ Uso
 
-EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍAS DE NINGÚN TIPO.  
+Este microservicio expone una API REST para el envío de mensajes. Ejemplo de solicitud para enviar un correo:
+
+```sh
+POST /api/send-email
+Content-Type: application/json
+{
+  "to": "usuario@example.com",
+  "subject": "Bienvenido",
+  "body": "¡Gracias por registrarte en nuestro servicio!"
+}
+```
+
+## 📜 Licencia
+
+Este proyecto está bajo la **Licencia MIT**.
+
+© 2025 [2A2G](https://github.com/2A2G).
+
+Se permite el uso, modificación y distribución de este software de forma gratuita, siempre que se conserve este aviso de licencia.
 
