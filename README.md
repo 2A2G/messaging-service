@@ -75,5 +75,13 @@ npm start
 ```
 
 ## Licencia
-Todos los derechos reservados © [2A2G](https://github.com/2A2G). Este repositorio es de uso privado y no se permite su distribución sin autorización.
+MIT License
+
+Copyright (c) [2025] [2A2G]
+
+Se concede permiso, sin cargo, a cualquier persona que obtenga una copia  
+de este software para usarlo, modificarlo y distribuirlo, sujeto a que  
+se mantenga este aviso de licencia.
+
+EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍAS DE NINGÚN TIPO.  
 

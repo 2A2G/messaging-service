@@ -1,5 +1,36 @@
 {
   "dependencies": {
+    "express": "^4.21.2",
     "nodemailer": "^6.10.0"
-  }
+  },
+  "name": "messaging-service",
+  "version": "1.0.0",
+  "description": "messaging-service es un microservicio desarrollado en Node.js encargado de gestionar toda la mensajería del sistema, haciéndola eficaz y escalable.",
+  "main": "app.js",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2A2G/messaging-service.git"
+  },
+  "keywords": [
+    "nodejs",
+    "microservices",
+    "api-rest",
+    "sistema",
+    "de",
+    "mensajería"
+  ],
+  "author": "2A2G",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/2A2G/messaging-service/issues"
+  },
+  "homepage": "https://github.com/2A2G/messaging-service#readme"
 }
