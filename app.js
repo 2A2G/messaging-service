@@ -1,12 +1,11 @@
-const express = require("express");
+import express, { json } from "express";
+import emailRoutes from "./src/routes/emailRoutes.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(json());
 
-app.get("/", (req, res) => {
-  res.send("Messaging Service is running 🚀");
-});
+app.use("/messaging-service", emailRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
 });
