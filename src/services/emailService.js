@@ -1,14 +1,18 @@
-import { transporter } from "./config/nodemailerConfig.js";
+import transporter from "../config/nodemailerConfig.js";
 
-const sendEmail = async ({ to, subject, html }) => {
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to,
-    subject,
-    html,
-  };
+export const sendEmail = async ({ to, subject, html }) => {
+  try {
+    const info = await transporter.sendMail({
+      from: `"Messaging Service" <${process.env.MAIL_USER}>`,
+      to,
+      subject,
+      html,
+    });
 
-  // await sendMail(mailOptions);
+    // console.log("Correo enviado:", info.messageId);
+    return info;
+  } catch (error) {
+    console.error("Error en el envío de correo:", error);
+    throw new Error("No se pudo enviar el correo");
+  }
 };
-
-export default { sendEmail };
