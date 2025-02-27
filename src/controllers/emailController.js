@@ -1,6 +1,6 @@
 import { sendEmail } from "../services/emailService.js";
 
-export const sendTestEmail = async (req, res) => {
+export const sendMailWelcome = async (req, res) => {
   try {
     const { to, subject, message } = req.body;
 
@@ -9,7 +9,7 @@ export const sendTestEmail = async (req, res) => {
         .status(400)
         .json({ message: "Faltan parámetros en la solicitud" });
     }
-
+    
     await sendEmail({
       to,
       subject,
