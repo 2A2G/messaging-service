@@ -1,4 +1,4 @@
-import { sendEmail } from "../services/sendEmailService.js";
+import { sendEmail } from "../services/sendEmail.service.js";
 
 
 export const welcome = async (req, res) => {
