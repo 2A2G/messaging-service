@@ -58,26 +58,11 @@ Para desarrollo con autorecarga:
 ```sh
 npm run dev
 ```
-
-## 🛠️ Uso
-
-Este microservicio expone una API REST para el envío de mensajes. Ejemplo de solicitud para enviar un correo:
-
-```sh
-POST /api/send-email
-Content-Type: application/json
-{
-  "to": "usuario@example.com",
-  "subject": "Bienvenido",
-  "body": "¡Gracias por registrarte en nuestro servicio!"
-}
-```
-
 ## 📜 Licencia
 
 Este proyecto está bajo la **Licencia MIT**.
 
-© 2025 [2A2G](https://github.com/2A2G).
+© 2025 [2A2G](https://github.com/2A2G) & [Dev-Drian](https://github.com/Dev-Drian)
 
 Se permite el uso, modificación y distribución de este software de forma gratuita, siempre que se conserve este aviso de licencia.
 
