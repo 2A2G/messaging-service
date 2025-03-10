@@ -15,3 +15,23 @@ model TemplateEmail {
   updatedAt   DateTime @updatedAt
 }
 
+model SMTP {
+  id         String @id @default(auto()) @map("_id")
+  host       String
+  port       Int
+  username   String
+  password   String
+  secure     Boolean
+  createdAt  DateTime @default(now())
+}
+
+model Email {
+  id         String   @id @default(auto()) @map("_id")
+  to         String
+  subject    String
+  body       String
+  smtpId     String   // Relación con el servidor SMTP usado
+  sentAt     DateTime @default(now())
+  status     String  
+  error      String? 
+}
