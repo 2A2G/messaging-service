@@ -1,21 +1,23 @@
-# 1️⃣ Usar una imagen base oficial de Node.js
-FROM node:18-alpine 
+# 1. Usar la imagen de Node.js con Alpine (ligera)
+FROM node:18-alpine
 
-# 2️⃣ Definir el directorio de trabajo dentro del contenedor
+# 2. Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# 3️⃣ Copiar los archivos esenciales (evitamos copiar node_modules para optimizar)
-COPY package.json package-lock.json ./
+# 3. Copiar los archivos de dependencias
+COPY package*.json tsconfig.json ./
 
-# 4️⃣ Instalar dependencias
+# 4. Instalar las dependencias
 RUN npm install
 
-# 5️⃣ Copiar todo el código del proyecto
+# 5. Copiar el resto del código de la aplicación
 COPY . .
 
-# 6️⃣ Generar los archivos de Prisma (si usas Prisma)
-RUN npx prisma generate
+# 6. Compilar TypeScript
+RUN npm run build
 
-# 7️⃣ Exponer el puerto de la aplicación
+# 7. Exponer el puerto en el que corre la aplicación
 EXPOSE 3000
 
+# 8. Ejecutar la aplicación desde dist/
+CMD ["node", "dist/src/app.js"]

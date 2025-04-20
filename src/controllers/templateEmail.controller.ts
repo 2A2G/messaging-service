@@ -1,40 +1,85 @@
-import { prisma } from "../config/prisma";
+import { Request, Response } from "express";
+import templateEmailService from "../services/templateEmail.service";
 
-class TemplateEmailService {
-  async getAllTemplates() {
-    return await prisma.templateEmail.findMany();
+// Obtener todos los templates
+export const getAllTemplates = async (req: Request, res: Response) => {
+  try {
+    const templates = await templateEmailService.getAllTemplates();
+    res.status(200).json(templates);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener los templates" });
   }
+};
 
-  async getTemplateByType(type: string) {
-    return await prisma.templateEmail.findFirst({ where: { type } });
-  }
-
-  async createTemplate(type: string, body: string) {
-    return await prisma.templateEmail.create({ data: { type, body } });
-  }
-
-  async updateTemplate(id: string, type: string, body: string) {
-    const template = await prisma.templateEmail.findUnique({ where: { id } });
+// Obtener template por tipo
+export const getTemplateByType = async (req: Request, res: Response) => {
+  try {
+    const { type } = req.params;
+    const template = await templateEmailService.getTemplateByType(type);
 
     if (!template) {
-      throw new Error("Template not found");
+      return res.status(404).json({ error: "Template no encontrado" });
     }
 
-    return await prisma.templateEmail.update({
-      where: { id },
-      data: { type, body },
-    });
+    res.status(200).json(template);
+  } catch (error) {
+    res.status(500).json({ error: "Error al buscar el template" });
   }
+};
 
-  async deleteTemplate(id: string) {
-    const template = await prisma.templateEmail.findUnique({ where: { id } });
+// Crear un nuevo template
+export const createTemplate = async (req: Request, res: Response) => {
+  try {
+    const { type, body } = req.body;
 
-    if (!template) {
-      throw new Error("Template not found");
+    if (!type || !body) {
+      return res.status(400).json({ error: "Faltan campos obligatorios (type, body)" });
     }
 
-    return await prisma.templateEmail.delete({ where: { id } });
+    const newTemplate = await templateEmailService.createTemplate(type, body);
+    res.status(201).json(newTemplate);
+  } catch (error) {
+    res.status(500).json({ error: "Error al crear el template" });
   }
-}
+};
 
-export default new TemplateEmailService();
+// Actualizar template
+export const updateTemplate = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { type, body } = req.body;
+
+    const updatedTemplate = await templateEmailService.updateTemplate(id, type, body);
+    res.status(200).json(updatedTemplate);
+  } catch (error: any) {
+    if (error.message === "Template not found") {
+      res.status(404).json({ error: "Template no encontrado" });
+    } else {
+      res.status(500).json({ error: "Error al actualizar el template" });
+    }
+  }
+};
+
+// Eliminar template
+export const deleteTemplate = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const deletedTemplate = await templateEmailService.deleteTemplate(id);
+    res.status(200).json(deletedTemplate);
+  } catch (error: any) {
+    if (error.message === "Template not found") {
+      res.status(404).json({ error: "Template no encontrado" });
+    } else {
+      res.status(500).json({ error: "Error al eliminar el template" });
+    }
+  }
+};
+
+// Exportar todos los métodos como objeto (opcional)
+export default {
+  getAllTemplates,
+  getTemplateByType,
+  createTemplate,
+  updateTemplate,
+  deleteTemplate,
+};

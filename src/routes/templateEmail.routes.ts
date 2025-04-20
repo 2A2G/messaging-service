@@ -1,5 +1,11 @@
 import express from "express";
-import { getAllTemplates, createTemplate, updateTemplate, deleteTemplate, getTemplateByType } from "../controllers/templateEmail.controller";
+import {
+  getAllTemplates,
+  getTemplateByType,
+  createTemplate,
+  updateTemplate,
+  deleteTemplate,
+} from "../controllers/templateEmail.controller"; // Importa desde el controlador
 
 const router = express.Router();
 

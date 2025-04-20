@@ -1,7 +1,7 @@
 import express, { json } from "express";
 import mongoose from "mongoose";
-import sendEmailRoutes from "./src/routes/sendEmail.routes"
-import templateRoutes from "./src/routes/templateEmail.routes";
+import sendEmailRoutes from "./routes/sendEmail.routes"
+import templateRoutes from "./routes/templateEmail.routes";
 import dotenv from "dotenv";
 // import { dbUrl } from "./src/config/database";
 dotenv.config();
