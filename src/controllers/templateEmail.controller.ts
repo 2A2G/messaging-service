@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, RequestHandler } from "express";
 import templateEmailService from "../services/templateEmail.service";
 
 // Obtener todos los templates
@@ -12,13 +12,14 @@ export const getAllTemplates = async (req: Request, res: Response) => {
 };
 
 // Obtener template por tipo
-export const getTemplateByType = async (req: Request, res: Response) => {
+export const getTemplateByType: RequestHandler = async (req, res, next): Promise<void> => {
   try {
     const { type } = req.params;
     const template = await templateEmailService.getTemplateByType(type);
 
     if (!template) {
-      return res.status(404).json({ error: "Template no encontrado" });
+      res.status(404).json({ error: "Template no encontrado" });
+      return;
     }
 
     res.status(200).json(template);
@@ -28,12 +29,13 @@ export const getTemplateByType = async (req: Request, res: Response) => {
 };
 
 // Crear un nuevo template
-export const createTemplate = async (req: Request, res: Response) => {
+export const createTemplate: RequestHandler = async (req, res, next): Promise<void> => {
   try {
     const { type, body } = req.body;
 
     if (!type || !body) {
-      return res.status(400).json({ error: "Faltan campos obligatorios (type, body)" });
+      res.status(400).json({ error: "Faltan campos obligatorios (type, body)" });
+      return;
     }
 
     const newTemplate = await templateEmailService.createTemplate(type, body);

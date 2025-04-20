@@ -10,21 +10,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.welcome = void 0;
-const sendEmail_service_js_1 = require("../services/sendEmail.service.js");
-const welcome = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const sendEmail_service_1 = require("../services/sendEmail.service");
+const welcome = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { to, subject, message } = req.body;
         if (!to || !subject || !message) {
-            return res
-                .status(400)
-                .json({ message: "Faltan parámetros en la solicitud" });
+            res.status(400).json({ error: "Faltan campos requeridos" });
+            return;
         }
-        yield (0, sendEmail_service_js_1.sendEmail)({
+        yield (0, sendEmail_service_1.sendEmail)({
             to,
             subject,
             html: `<p>${message}</p>`,
         });
-        res.status(200).json({ message: "Correo enviado con éxito" });
+        res.status(200).json({ message: "Email enviado exitosamente" });
     }
     catch (error) {
         console.error("Error al enviar el correo:", error);

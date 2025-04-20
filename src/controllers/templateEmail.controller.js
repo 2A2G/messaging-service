@@ -26,12 +26,13 @@ const getAllTemplates = (req, res) => __awaiter(void 0, void 0, void 0, function
 });
 exports.getAllTemplates = getAllTemplates;
 // Obtener template por tipo
-const getTemplateByType = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getTemplateByType = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { type } = req.params;
         const template = yield templateEmail_service_1.default.getTemplateByType(type);
         if (!template) {
-            return res.status(404).json({ error: "Template no encontrado" });
+            res.status(404).json({ error: "Template no encontrado" });
+            return;
         }
         res.status(200).json(template);
     }
@@ -41,11 +42,12 @@ const getTemplateByType = (req, res) => __awaiter(void 0, void 0, void 0, functi
 });
 exports.getTemplateByType = getTemplateByType;
 // Crear un nuevo template
-const createTemplate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const createTemplate = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { type, body } = req.body;
         if (!type || !body) {
-            return res.status(400).json({ error: "Faltan campos obligatorios (type, body)" });
+            res.status(400).json({ error: "Faltan campos obligatorios (type, body)" });
+            return;
         }
         const newTemplate = yield templateEmail_service_1.default.createTemplate(type, body);
         res.status(201).json(newTemplate);

@@ -1,18 +1,18 @@
-import express from "express";
+import { Router } from "express";
 import {
   getAllTemplates,
   getTemplateByType,
   createTemplate,
   updateTemplate,
   deleteTemplate,
-} from "../controllers/templateEmail.controller"; // Importa desde el controlador
+} from "../controllers/templateEmail.controller";
 
-const router = express.Router();
+const router = Router();
 
-router.get("/", getAllTemplates);
-router.get("/:type", getTemplateByType);
-router.post("/", createTemplate);
-router.put("/:id", updateTemplate);
-router.delete("/:id", deleteTemplate);
+router.get("/", getAllTemplates as any);
+router.get("/:type", getTemplateByType as any);
+router.post("/", createTemplate as any);
+router.put("/:id", updateTemplate as any);
+router.delete("/:id", deleteTemplate as any);
 
 export default router;

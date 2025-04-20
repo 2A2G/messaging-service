@@ -5,14 +5,14 @@ class TemplateEmailService {
     return await prisma.templateEmail.findMany();
   }
 
-  async getTemplateByType(type: String) {
+  async getTemplateByType(type: string) {
     return await prisma.templateEmail.findFirst({ where: { type } });
   }
 
   async createTemplate(type: string, body: string) {
     return await prisma.templateEmail.create({ data: { type, body } });
   }
-
+  
   async updateTemplate(id: string, type: string, body: string) {
     return await prisma.templateEmail.update({
       where: { id },

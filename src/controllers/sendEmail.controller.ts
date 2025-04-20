@@ -1,14 +1,14 @@
-import { sendEmail } from "../services/sendEmail.service.js";
+import { sendEmail } from "../services/sendEmail.service";
+import { Request, Response, RequestHandler } from 'express';
 
 
-export const welcome = async (req, res) => {
+export const welcome: RequestHandler = async (req, res, next): Promise<void> => {
   try {
     const { to, subject, message } = req.body;
 
     if (!to || !subject || !message) {
-      return res
-        .status(400)
-        .json({ message: "Faltan parámetros en la solicitud" });
+      res.status(400).json({ error: "Faltan campos requeridos" });
+      return;
     }
     
     await sendEmail({
@@ -17,8 +17,8 @@ export const welcome = async (req, res) => {
       html: `<p>${message}</p>`,
     });
 
-    res.status(200).json({ message: "Correo enviado con éxito" });
-  } catch (error) {
+    res.status(200).json({ message: "Email enviado exitosamente" });
+  } catch (error: any) {
     console.error("Error al enviar el correo:", error);
     res
       .status(500)
